@@ -1,0 +1,87 @@
+﻿===============================================================================
+Web CONFIG RED FONTUR
+===============================================================================
+
+<?xml version="1.0"?>
+
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=169433
+  -->
+
+<configuration>
+  <connectionStrings>
+    <add name="CallCenterConnectionString" connectionString="Data Source=server8;Database=Eisum;User ID=sa; password =vv2832f1"
+      providerName="System.Data.SqlClient" />
+  </connectionStrings>
+  <system.web>
+    <compilation debug="true" targetFramework="4.5" />
+    <httpRuntime targetFramework="4.5" />
+  </system.web>
+  <appSettings>
+    <add key="connectionString" value="Data Source=server8;Database=Eisum;User ID=sa; password =vv2832f1" />
+
+    <add key="ValidationSettings:UnobtrusiveValidationMode" value="None" />
+  </appSettings>
+</configuration>
+
+===============================================================================
+
+===============================================================================
+Web CONFIG LOCAL CASA
+===============================================================================
+
+<?xml version="1.0"?>
+
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=169433
+  -->
+
+<configuration>
+  <connectionStrings>
+    <!--<add name="CallCenterConnectionString" connectionString="Data Source=GTI-DDM-4;Initial Catalog=Eisum;User ID=sa; password =123456789"-->
+         <add name="CallCenterConnectionString" connectionString="Data Source=(local);Initial Catalog=Eisum;Integrated Security=True"
+      providerName="System.Data.SqlClient" />
+  </connectionStrings>
+  <system.web>
+    <compilation debug="true" targetFramework="4.5" />
+    <httpRuntime targetFramework="4.5" />
+  </system.web>
+  <appSettings>
+    <!--<add key="connectionString" value="Data Source=GTI-DDM-4;Initial Catalog=Eisum;User ID=sa; password =123456789" />-->
+     <add key="connectionString" value="Data Source=(local);Initial Catalog=Eisum;Integrated Security=True" />
+   <add key="ValidationSettings:UnobtrusiveValidationMode" value="None" />
+  </appSettings>
+</configuration>
+
+===============================================================================
+
+===============================================================================
+Web CONFIG GTI-DDM-4
+===============================================================================
+
+<?xml version="1.0"?>
+
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=169433
+  -->
+
+<configuration>
+  <connectionStrings>
+    <add name="CallCenterConnectionString" connectionString="Data Source=GTI-DDM-4;Initial Catalog=Eisum;User ID=sa; password =123456789"
+      providerName="System.Data.SqlClient" />
+  </connectionStrings>
+  <system.web>
+    <compilation debug="true" targetFramework="4.5" />
+    <httpRuntime targetFramework="4.5" />
+  </system.web>
+  <appSettings>
+    <add key="connectionString" value="Data Source=GTI-DDM-4;Initial Catalog=Eisum;User ID=sa; password =123456789" />
+
+    <add key="ValidationSettings:UnobtrusiveValidationMode" value="None" />
+  </appSettings>
+</configuration>
+
+==============================================================================
