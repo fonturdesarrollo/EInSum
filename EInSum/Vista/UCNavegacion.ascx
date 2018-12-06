@@ -41,6 +41,7 @@
 													<li><ASP:HyperLink runat="server" ID ="lnkJornada"  navigateurl ="~/Vista/EntregaInsumoJornada.aspx"  Text ="Crear jornada"></ASP:HyperLink></li>
 													<li><ASP:HyperLink runat="server" ID ="lnkAsignarBeneficiarios"  navigateurl ="~/Vista/EntregaInsumoDetalleJornada.aspx"  Text ="Asignar beneficiarios a jornada"></ASP:HyperLink></li>
 													<li><ASP:HyperLink runat="server" ID ="lnkEntrega"  navigateurl ="~/Vista/Entrega.aspx"  Text ="Entrega"></ASP:HyperLink></li>
+                                                    <li><ASP:HyperLink runat="server" ID ="lnkCierreOperativo"  navigateurl ="~/Vista/EntregaCierreOperativo.aspx"  Text ="Cierre de Operativo"></ASP:HyperLink></li>
 												</ul>
 										</li>
 

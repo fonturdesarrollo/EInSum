@@ -47,6 +47,10 @@ namespace Vista
                 {
                     lnkJornada.Visible = true;
                 }
+                if (objetoSeguridad.EsAccesoPermitido(1058) == true)
+                {
+                    lnkCierreOperativo.Visible = true;
+                }
 
                 //=============================================================
 

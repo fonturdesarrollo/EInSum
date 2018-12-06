@@ -103,5 +103,22 @@ namespace Eisum
             SqlCommand command = new SqlCommand(consultaSQL, cn);
             return command.ExecuteReader();
         }
+        public static int CerrarJornadaEntregaInsumo(int entregaInsumoID, int usuarioID)
+        {
+            try
+            {
+                SqlParameter[] dbParams = new SqlParameter[]
+                {
+                    DBHelper.MakeParam("@EntregaInsumoID", SqlDbType.Int, 0, entregaInsumoID),
+                    DBHelper.MakeParam("@SeguridadUsuarioDatosCierreID", SqlDbType.Int, 0, usuarioID)
+                };
+
+                return Convert.ToInt32(DBHelper.ExecuteScalar("[usp_EntregaInsumo_CerrarJornada]", dbParams));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -78,6 +79,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Vista\EntregaCierreOperativo.aspx" />
     <Content Include="Vista\AsignarEje.aspx" />
     <Content Include="images\Save_37110.png" />
     <Content Include="Vista\Entrega.aspx" />
@@ -296,6 +298,13 @@
     </Compile>
     <Compile Include="Controlador\ModeloVehiculo.cs">
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vista\EntregaCierreOperativo.aspx.cs">
+      <DependentUpon>EntregaCierreOperativo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vista\EntregaCierreOperativo.aspx.designer.cs">
+      <DependentUpon>EntregaCierreOperativo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modelo\CMarcaModeloVehiculo.cs" />
     <Compile Include="Vista\AsignarEje.aspx.cs">

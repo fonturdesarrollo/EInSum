@@ -73,6 +73,9 @@ namespace Seguridad
                 case "/Vista/ModeloVehiculo.aspx":
                     codigoObjeto = 1057;
                     break;
+                case "/Vista/EntregaCierreOperativo.aspx":
+                    codigoObjeto = 1058;
+                    break;
                 default:
                     break;
             }
