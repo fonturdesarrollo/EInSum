@@ -90,7 +90,7 @@
 											    <asp:TemplateField HeaderText="Acciones" HeaderStyle-Width="100">
 												    <ItemTemplate>
 														    <asp:ImageButton runat="server" ID="btnActualizarModificacionGrid" AlternateText="Guardar cambios" ToolTip="Guardar cambios" ImageUrl="~/Images/Save_37110.png"  CommandName="GuardarCambiosGrid" CommandArgument='<%# Eval("MarcaVehiculoID") %>' CausesValidation ="false"/> 
-														    <asp:ImageButton runat="server" ID="btnEliminarRegistro" AlternateText="Eliminar Registro" ToolTip="Eliminar Registro" OnClientClick="return Confirmacion();" ImageUrl="~/Images/eliminar.png"  CommandName="EliminarDetalle" CommandArgument='<%# Eval("MarcaVehiculoID") %>' CausesValidation ="false"/> 
+														    <%--<asp:ImageButton runat="server" ID="btnEliminarRegistro" AlternateText="Eliminar Registro" ToolTip="Eliminar Registro" OnClientClick="return Confirmacion();" ImageUrl="~/Images/eliminar.png"  CommandName="EliminarDetalle" CommandArgument='<%# Eval("MarcaVehiculoID") %>' CausesValidation ="false"/>--%> 
 												    </ItemTemplate>
 											    </asp:TemplateField>
 										</Columns>

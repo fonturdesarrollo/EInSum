@@ -26,7 +26,8 @@ namespace Eisum
                     DBHelper.MakeParam("@CedulaPresidente", SqlDbType.Int, 0, objetoOrganizacion.CedulaPresidente),
                     DBHelper.MakeParam("@NombrePresidente", SqlDbType.VarChar, 0, objetoOrganizacion.NombrePresidente),
                     DBHelper.MakeParam("@SeguridadUsuarioDatosID", SqlDbType.Int, 0,objetoOrganizacion.SeguridadUsuarioDatosID),
-                    DBHelper.MakeParam("@BloqueID", SqlDbType.Int, 0,objetoOrganizacion.BloqueID)
+                    DBHelper.MakeParam("@BloqueID", SqlDbType.Int, 0,objetoOrganizacion.BloqueID),
+                    DBHelper.MakeParam("@RutaOrganizacion", SqlDbType.VarChar, 0,objetoOrganizacion.RutaOrganizacion)
             };
 
             return Convert.ToInt32(DBHelper.ExecuteScalar("[usp_Organizacion_Insertar]", dbParams));

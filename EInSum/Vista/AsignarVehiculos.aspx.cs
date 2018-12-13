@@ -358,7 +358,7 @@ namespace Eisum
                     objetoAsignarVehiculo.SeguridadUsuarioDatosID = Convert.ToInt32(Session["UserId"]);
                     objetoAsignarVehiculo.SerialMotor = txtSerialMotor.Text.ToUpper();
                     objetoAsignarVehiculo.ColorID = Convert.ToInt32(ddlColor.SelectedValue);
-                    objetoAsignarVehiculo.Ruta = txtRuta.Text.ToUpper();
+                    objetoAsignarVehiculo.Ruta = "";//txtRuta.Text.ToUpper();
                     objetoAsignarVehiculo.ModeloVehiculoID = Convert.ToInt32(ddlHijo.SelectedValue);
                     codigoAsignarVehiculos = AsignarVehiculos.InsertarAsignarVehiculo(objetoAsignarVehiculo);
 
@@ -413,20 +413,20 @@ namespace Eisum
                 resultado = false;
                 messageBox.ShowMessage("La placa ya está asignada.");
             }
-            if(ddlEstado.SelectedValue =="")
-            {
-                resultado = false;
-                messageBox.ShowMessage("Debe seleccionar el estado y el bloque de la lista.");
-                NuevoRegistro();
+            //if(ddlEstado.SelectedValue =="")
+            //{
+            //    resultado = false;
+            //    messageBox.ShowMessage("Debe seleccionar el estado y el bloque de la lista.");
+            //    NuevoRegistro();
 
-            }
-            if (ddlBloque.SelectedValue == "")
-            {
-                resultado = false;
-                messageBox.ShowMessage("Debe seleccionar el estado y el bloque de la lista.");
-                NuevoRegistro();
+            //}
+            //if (ddlBloque.SelectedValue == "")
+            //{
+            //    resultado = false;
+            //    messageBox.ShowMessage("Debe seleccionar el estado y el bloque de la lista.");
+            //    NuevoRegistro();
 
-            }
+            //}
             return resultado;
         }
         protected void gridDetalle_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -466,6 +466,11 @@ namespace Eisum
             Session.Remove("OrganizacionAsignarVehiculoID");
             txtPlaca.Text = string.Empty;
             txtSerialCarroceria.Text = string.Empty;
+            txtSerialMotor.Text = string.Empty;
+            CargarPadre();
+            ddlHijo.Items.Clear();
+            CargarColor();
+            CargarAño();
             if(hdnBeneficiarioID.Value !="0")
             {
                 CargarDetalleVehiculoAsignado();
@@ -586,7 +591,7 @@ namespace Eisum
                     objetoAsignaEstatus.AñoVehiculo = Utils.utils.ToInt(((DropDownList)dr.FindControl("ddlAñoGrid")).SelectedValue);
                     objetoAsignaEstatus.ColorID = Utils.utils.ToInt(((DropDownList)dr.FindControl("ddlColorGrid")).SelectedValue);
                     objetoAsignaEstatus.ModeloVehiculoID = Utils.utils.ToInt(((DropDownList)dr.FindControl("ddModeloGrid")).SelectedValue);
-                    objetoAsignaEstatus.Ruta = Utils.utils.ToString(((TextBox)dr.FindControl("txtRutaGrid")).Text);
+                    objetoAsignaEstatus.Ruta = ""; Utils.utils.ToString(((TextBox)dr.FindControl("txtRutaGrid")).Text);
 
                     objetoAsignaEstatus.TipoVehiculoID = 1;
                     objetoAsignaEstatus.TipoPrestacionServicioVehiculoID = 1;

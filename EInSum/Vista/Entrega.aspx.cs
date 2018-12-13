@@ -21,7 +21,7 @@ namespace Eisum
         {
             try
             {
-                DataSet ds = EntregaInsumoDetalleJornada.ObtenerDetalleEntregaJornada(0, txtPlaca.Text.ToUpper());
+                DataSet ds = EntregaInsumoDetalleJornada.ObtenerDetalleEntregaJornada(0, txtPlaca.Text.ToUpper(),0);
                 DataTable dt = ds.Tables[0];
                 gridDetalle.DataSource = dt;
                 gridDetalle.DataBind();

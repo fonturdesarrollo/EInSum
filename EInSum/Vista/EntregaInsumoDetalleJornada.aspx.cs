@@ -151,7 +151,7 @@ namespace Eisum
         {
             try
             {
-                DataSet ds = EntregaInsumoDetalleJornada.ObtenerDetalleEntregaJornada(Convert.ToInt32(ddlEntregaInsumoJornada.SelectedValue), "");
+                DataSet ds = EntregaInsumoDetalleJornada.ObtenerDetalleEntregaJornada(Convert.ToInt32(ddlEntregaInsumoJornada.SelectedValue),"",0);
                 DataTable dt = ds.Tables[0];
                 gridDetalle.DataSource = dt;
                 gridDetalle.DataBind();
@@ -328,23 +328,17 @@ namespace Eisum
             try
             {
                 string nombreOrganizacion = "";
-                 int totalRegistros = 0;
-
-                if(ddlEntregaInsumoJornada.SelectedValue !="")
+                string estado = "";
+                int totalRegistros = 0;
+                int totalPlacasPorOrganizacion = 0;
+                if (ddlEntregaInsumoJornada.SelectedValue != "")
                 {
-                    DataSet dsOrg = EntregaInsumoDetalleJornada.ObtenerDetalleEntregaJornada(Convert.ToInt32(ddlEntregaInsumoJornada.SelectedValue), "");
+                    DataSet dsTotal = EntregaInsumoDetalleJornada.ObtenerDetalleEntregaJornada(Convert.ToInt32(ddlEntregaInsumoJornada.SelectedValue), "", 0);
+                    totalRegistros = dsTotal.Tables[0].Rows.Count;
+                    dsTotal.Dispose();
 
+                    DataSet dsOrg = EntregaInsumoDetalleJornada.ObtenerDetalleEntregaJornadaOrganizacion(Convert.ToInt32(ddlEntregaInsumoJornada.SelectedValue));
                     DataTableReader drOrg = dsOrg.Tables[0].CreateDataReader();
-
-                    if (drOrg.Read())
-                    {
-                        nombreOrganizacion = drOrg["RifOrganizacion"].ToString() + " " + drOrg["NombreOrganizacion"].ToString();
-                        //estado = drOrg["NombreEstado"].ToString();
-                        //bloque = drOrg["NombreBloque"].ToString();
-                        totalRegistros = dsOrg.Tables[0].Rows.Count;
-                        drOrg.Close();
-                    }
-
 
                     // Create a Document object
                     Document document = new Document(PageSize.A4, 88f, 88f, 10f, 10f);
@@ -356,7 +350,6 @@ namespace Eisum
                     // Open the Document for writing
                     document.Open();
 
-
                     var titleFont = FontFactory.GetFont("Arial", 18, iTextSharp.text.Font.BOLD);
                     var subTitleFont = FontFactory.GetFont("Arial", 12, iTextSharp.text.Font.BOLD);
                     var boldTableFont = FontFactory.GetFont("Arial", 6, iTextSharp.text.Font.BOLD);
@@ -364,71 +357,91 @@ namespace Eisum
                     var bodyFont = FontFactory.GetFont("Arial", 8, iTextSharp.text.Font.NORMAL);
 
 
-                    var logo = iTextSharp.text.Image.GetInstance(Server.MapPath("~/Images/LogoFonturChiquito.png"));
-                    logo.SetAbsolutePosition(510, 770);
-                    logo.ScaleAbsolute(60f, 60f);
-                    document.Add(logo);
+                    while (drOrg.Read())
+                    {
+                            var logo = iTextSharp.text.Image.GetInstance(Server.MapPath("~/Images/LogoFonturChiquito.png"));
+                            logo.SetAbsolutePosition(510, 770);
+                            logo.ScaleAbsolute(60f, 60f);
+                            document.Add(logo);
+                            nombreOrganizacion = drOrg["RifOrganizacion"].ToString() + " " + drOrg["NombreOrganizacion"].ToString();
+                            estado = drOrg["NombreEstado"].ToString();
+                           // totalRegistros = dsOrg.Tables[0].Rows.Count;
 
-                    // Add the "Northwind Traders Receipt" title
+                            document.Add(new Paragraph("Lista de Beneficiarios Entrega de Insumos", titleFont));
+
+                            document.Add(new Paragraph("Organización: " + nombreOrganizacion, bodyFont));
+                            document.Add(new Paragraph("Estado: " + estado, bodyFont));
+
+                            var endingMessage = new Paragraph("Reporte impreso por: " + Session["NombreCompletoUsuario"] + " el día:  " + System.DateTime.Now, bodyFont);
+
+                            document.Add(endingMessage);
+                            document.Add(Chunk.NEWLINE);
+
+                            // Add the "Items In Your Order" subtitle
+                            document.Add(new Paragraph("Beneficiados", subTitleFont));
+
+                            // Create the Order Details table
+                            var orderDetailsTable = new PdfPTable(9);
+                            orderDetailsTable.HorizontalAlignment = 0;
+                            orderDetailsTable.SpacingBefore = 10;
+                            orderDetailsTable.SpacingAfter = 35;
+                            orderDetailsTable.DefaultCell.Border = 0;
+                            orderDetailsTable.TotalWidth = 500f;
+                            orderDetailsTable.LockedWidth = true;
+                            float[] widths = new float[] { 35f, 50f, 35f, 50f, 60f, 50f, 50f, 50f, 45f };
+                            orderDetailsTable.SetWidths(widths);
+                            orderDetailsTable.AddCell(new Phrase("Cedula", boldTableFont));
+                            orderDetailsTable.AddCell(new Phrase("Transportista", boldTableFont));
+                            orderDetailsTable.AddCell(new Phrase("Placa", boldTableFont));
+                            orderDetailsTable.AddCell(new Phrase("Marca", boldTableFont));
+                            orderDetailsTable.AddCell(new Phrase("Insumo", boldTableFont));
+                            orderDetailsTable.AddCell(new Phrase("Tipo", boldTableFont));
+                            orderDetailsTable.AddCell(new Phrase("Cantidad", boldTableFont));
+                            orderDetailsTable.AddCell(new Phrase("U/M", boldTableFont));
+                            orderDetailsTable.AddCell(new Phrase("Estatus", boldTableFont));
+
+                            DataSet dsPlaca = EntregaInsumoDetalleJornada.ObtenerDetalleEntregaJornada(Convert.ToInt32(ddlEntregaInsumoJornada.SelectedValue), "",Convert.ToInt32(drOrg["OrganizacionID"]));
+                            totalPlacasPorOrganizacion = dsPlaca.Tables[0].Rows.Count;
+                            DataTableReader drPlaca = dsPlaca.Tables[0].CreateDataReader();
+                            while (drPlaca.Read())
+                            {
+
+                                orderDetailsTable.AddCell(new Phrase(drPlaca["CedulaBeneficiario"].ToString(), FontFactory.GetFont("Arial", 5, iTextSharp.text.Font.BOLD)));
+                                orderDetailsTable.AddCell(new Phrase(drPlaca["NombreBeneficiario"].ToString(), FontFactory.GetFont("Arial", 5, Font.BOLD)));
+                                orderDetailsTable.AddCell(new Phrase(drPlaca["Placa"].ToString(), FontFactory.GetFont("Arial", 5, iTextSharp.text.Font.BOLD)));
+                                orderDetailsTable.AddCell(new Phrase(drPlaca["NombreMarcaVehiculo"].ToString(), FontFactory.GetFont("Arial", 5, Font.BOLD)));
+                                orderDetailsTable.AddCell(new Phrase(drPlaca["NombreTipoInsumo"].ToString(), FontFactory.GetFont("Arial", 5, Font.BOLD)));
+                                orderDetailsTable.AddCell(new Phrase(drPlaca["NombreTipoInsumoDetalle"].ToString(), FontFactory.GetFont("Arial", 5, Font.BOLD)));
+                                orderDetailsTable.AddCell(new Phrase(drPlaca["CantidadEntregaInsumo"].ToString(), FontFactory.GetFont("Arial", 5, Font.BOLD)));
+                                orderDetailsTable.AddCell(new Phrase(drPlaca["NombreUnidadMedida"].ToString(), FontFactory.GetFont("Arial", 5, Font.BOLD)));
+                                orderDetailsTable.AddCell(new Phrase(drPlaca["EstatusEntregaInsumoDetalle"].ToString(), FontFactory.GetFont("Arial", 5, Font.BOLD)));
+                            }
+                        
+                            document.Add(orderDetailsTable);
+                            drPlaca.Close();
+                            document.Add(Chunk.NEWLINE);
+                            var totalPlacas = new Paragraph("Total unidades en operativo por organización: " + totalPlacasPorOrganizacion, endingMessageFont);
+                            totalPlacas.SetAlignment("Right");
+                            document.Add(totalPlacas);
+                            document.Add(Chunk.NEWLINE);
+                            document.Add(Chunk.NEWLINE);
+                            document.NewPage();
+                    }
+                    // Add ending message
+                    var logoFin = iTextSharp.text.Image.GetInstance(Server.MapPath("~/Images/LogoFonturChiquito.png"));
+                    logoFin.SetAbsolutePosition(510, 770);
+                    logoFin.ScaleAbsolute(60f, 60f);
+                    document.Add(logoFin);
+
                     document.Add(new Paragraph("Lista de Beneficiarios Entrega de Insumos", titleFont));
-                    var endingMessage = new Paragraph("Reporte impreso por: " + Session["NombreCompletoUsuario"] + " el día:  " + System.DateTime.Now, bodyFont);
 
-                    document.Add(endingMessage);
+                    document.Add(new Paragraph("Operativo: " + ddlEntregaInsumoJornada.SelectedItem, bodyFont));
 
+                    var endMessage = new Paragraph("Reporte impreso por: " + Session["NombreCompletoUsuario"] + " el día:  " + System.DateTime.Now, bodyFont);
+                    document.Add(endMessage);
                     document.Add(Chunk.NEWLINE);
 
-
-                    // Add the "Items In Your Order" subtitle
-                    document.Add(new Paragraph("Beneficiados", subTitleFont));
-
-                    // Create the Order Details table
-                    var orderDetailsTable = new PdfPTable(10);
-                    orderDetailsTable.HorizontalAlignment = 1;
-                    orderDetailsTable.SpacingBefore = 10;
-                    orderDetailsTable.SpacingAfter = 35;
-                    orderDetailsTable.DefaultCell.Border = 0;
-
-                    orderDetailsTable.TotalWidth = 500f;
-                    orderDetailsTable.LockedWidth = true;
-                    float[] widths = new float[] { 100f, 35f, 50f, 35f, 50f, 60f, 50f, 50f, 50f, 35f };
-                    orderDetailsTable.SetWidths(widths);
-                    orderDetailsTable.AddCell(new Phrase("Organización", boldTableFont));
-                    orderDetailsTable.AddCell(new Phrase("Cedula", boldTableFont));
-                    orderDetailsTable.AddCell(new Phrase("Transportista", boldTableFont));
-                    orderDetailsTable.AddCell(new Phrase("Placa", boldTableFont));
-                    orderDetailsTable.AddCell(new Phrase("Marca", boldTableFont));
-                    orderDetailsTable.AddCell(new Phrase("Insumo", boldTableFont));
-                    orderDetailsTable.AddCell(new Phrase("Tipo", boldTableFont));
-                    orderDetailsTable.AddCell(new Phrase("Cantidad", boldTableFont));
-                    orderDetailsTable.AddCell(new Phrase("U/M", boldTableFont));
-                    orderDetailsTable.AddCell(new Phrase("Estatus", boldTableFont));
-
-
-
-                    DataTableReader dr = dsOrg.Tables[0].CreateDataReader();
-
-                    while (dr.Read())
-                    {
-
-                        orderDetailsTable.AddCell(new Phrase(dr["NombreOrganizacion"].ToString(), FontFactory.GetFont("Arial", 5, iTextSharp.text.Font.BOLD)));
-                        orderDetailsTable.AddCell(new Phrase(dr["CedulaBeneficiario"].ToString(), FontFactory.GetFont("Arial", 5, iTextSharp.text.Font.BOLD)));
-                        orderDetailsTable.AddCell(new Phrase(dr["NombreBeneficiario"].ToString(), FontFactory.GetFont("Arial", 5, Font.BOLD)));
-                        orderDetailsTable.AddCell(new Phrase(dr["Placa"].ToString(), FontFactory.GetFont("Arial", 5, iTextSharp.text.Font.BOLD)));
-                        orderDetailsTable.AddCell(new Phrase(dr["NombreMarcaVehiculo"].ToString(), FontFactory.GetFont("Arial", 5, Font.BOLD)));
-                        orderDetailsTable.AddCell(new Phrase(dr["NombreTipoInsumo"].ToString(), FontFactory.GetFont("Arial", 5, Font.BOLD)));
-                        orderDetailsTable.AddCell(new Phrase(dr["NombreTipoInsumoDetalle"].ToString(), FontFactory.GetFont("Arial", 5, Font.BOLD)));
-                        orderDetailsTable.AddCell(new Phrase(dr["CantidadEntregaInsumo"].ToString(), FontFactory.GetFont("Arial", 5, Font.BOLD)));
-                        orderDetailsTable.AddCell(new Phrase(dr["NombreUnidadMedida"].ToString(), FontFactory.GetFont("Arial", 5, Font.BOLD)));
-                        orderDetailsTable.AddCell(new Phrase(dr["EstatusEntregaInsumoDetalle"].ToString(), FontFactory.GetFont("Arial", 5, Font.BOLD)));
-
-                    }
-                    dr.Close();
-
-                    document.Add(orderDetailsTable);
-
-                    // Add ending message
-                    var totalMessage = new Paragraph("Total registros: " + totalRegistros, endingMessageFont);
-
+                    var totalMessage = new Paragraph("Cantidad total de unidades en operativo: " + totalRegistros, endingMessageFont);
                     totalMessage.SetAlignment("Center");
                     document.Add(totalMessage);
 
@@ -436,6 +449,7 @@ namespace Eisum
                     Response.ContentType = "application/pdf";
                     Response.AddHeader("Content-Disposition", string.Format("attachment;filename=BeneficiariosInsumos-{0}.pdf", ""));
                     Response.BinaryWrite(output.ToArray());
+                    drOrg.Close();
                 }
                 else
                 {

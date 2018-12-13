@@ -47,6 +47,9 @@
 							<!-- Header -->
 								<header id="header">
 									<a class="logo"><strong><asp:Label runat ="server" ID ="lblTitulo" Text="Agregar Modelo"></asp:Label></strong></a>
+									<ul class="icons">
+										<asp:HyperLink runat="server" ID="lnkInicio" Text ="Inicio" NavigateUrl="~/Vista/Principal.aspx" ></asp:HyperLink>
+									</ul>
 								</header>
 							<!-- Content -->
 							<form runat ="server" id ="principal">      
@@ -106,10 +109,8 @@
 										  </div>
 									</div>
 								</section>
-
+                                <p></p>
 								<div class="table-wrapper">
-									<asp:Label runat ="server" ID ="Label1" Text ="" Font-Bold ="true" ForeColor ="Red"></asp:Label>
-									<p></p>
 										<asp:GridView ID="gridDetalle" runat="server" 
 											CssClass="subtitulo" 
 											EmptyDataText="No existen Registros" 
@@ -174,12 +175,134 @@
 														<asp:Label runat="server" ID="txtCapacidadGrid" Text='<%# Eval("Capacidad") %>'  ></asp:Label>
 													</ItemTemplate>
 												</asp:TemplateField>
-<%--											    <asp:TemplateField HeaderText="Acciones" HeaderStyle-Width="100">
+										</Columns>
+										</asp:GridView>
+								</div>
+								<div class="table-wrapper">
+									<asp:SqlDataSource 
+										ID="SqlDataSource1" 
+										runat="server" ConnectionString="<%$ ConnectionStrings:CallCenterConnectionString %>" 
+										SelectCommand="SELECT * FROM MarcaVehiculo ORDER BY NombreMarcaVehiculo">
+									</asp:SqlDataSource>
+									<asp:SqlDataSource 
+										ID="SqlDataSource2" 
+										runat="server" ConnectionString="<%$ ConnectionStrings:CallCenterConnectionString %>" 
+										SelectCommand="SELECT * FROM TipoVehiculo Order By NombreTipoVehiculo">
+									</asp:SqlDataSource>
+
+									<asp:SqlDataSource 
+										ID="SqlDataSource3" 
+										runat="server" ConnectionString="<%$ ConnectionStrings:CallCenterConnectionString %>" 
+										SelectCommand="SELECT * FROM TipoInsumoDetalle WHERE TipoInsumoID = 1">
+									</asp:SqlDataSource>
+									<asp:SqlDataSource 
+										ID="SqlDataSource4" 
+										runat="server" ConnectionString="<%$ ConnectionStrings:CallCenterConnectionString %>" 
+										SelectCommand="SELECT * FROM TipoInsumoDetalle WHERE TipoInsumoID = 3">
+									</asp:SqlDataSource>
+									<asp:SqlDataSource 
+										ID="SqlDataSource5" 
+										runat="server" ConnectionString="<%$ ConnectionStrings:CallCenterConnectionString %>" 
+										SelectCommand="SELECT * FROM TipoInsumoDetalle WHERE TipoInsumoID = 2">
+									</asp:SqlDataSource>
+										<asp:GridView ID="gridDetalle2" runat="server" 
+											CssClass="subtitulo" 
+											EmptyDataText="No existen Registros" 
+											GridLines="Horizontal" 
+											AutoGenerateColumns="False"  OnRowCommand="gridDetalle2_RowCommand"  >
+											<HeaderStyle  Font-Size="10px" />
+											<AlternatingRowStyle Font-Size="15px"  />
+												<RowStyle  Font-Size="15px" />
+												<Columns>
+												<asp:TemplateField HeaderText="CodigoModelo" HeaderStyle-Width="0" Visible="false">
+													<ItemTemplate>
+														<asp:Label runat="server" ID="lblModeloID" Text='<%# Eval("ModeloVehiculoID") %>'  Visible ="false" ></asp:Label>
+													</ItemTemplate>
+												</asp:TemplateField>
+												<asp:TemplateField HeaderText="CodigoMarca" HeaderStyle-Width="0" Visible="false">
+													<ItemTemplate>
+														<asp:Label runat="server" ID="lblMarcaID" Text='<%# Eval("MarcaVehiculoID") %>'  Visible ="false" ></asp:Label>
+													</ItemTemplate>
+												</asp:TemplateField>
+											    <asp:TemplateField HeaderText="ModeloID"  HeaderStyle-Width="0" Visible="false">
+												    <ItemTemplate >
+													    <asp:TextBox runat="server" ID="txtModeloID"  Text='<%# Eval("NombreModeloVehiculo") %>'></asp:TextBox>
+												    </ItemTemplate>
+											    </asp:TemplateField>
+												<asp:TemplateField HeaderText="Modelo" ControlStyle-Width="180">
+													<ItemTemplate>
+														<asp:TextBox runat="server" ID="txtModeloGrid" Text='<%# Eval("NombreModeloVehiculo") %>'  ></asp:TextBox>
+													</ItemTemplate>
+												</asp:TemplateField>
+											    <asp:TemplateField HeaderText="Tipo Vehiculo" ControlStyle-Width="180">
+												    <ItemTemplate>
+													    <div class="select-wrapper">
+														    <asp:DropDownList runat="server" ID="ddlTipoVehiculoGrid"
+															    DataSourceID="SqlDataSource2" 
+															    DataTextField ="NombreTipoVehiculo"
+															    DataValueField ="TipoVehiculoID"
+															    SelectedValue ='<%# Bind("TipoVehiculoID") %>'>
+														    </asp:DropDownList>
+													    </div>
+												    </ItemTemplate>
+											    </asp:TemplateField>
+											    <asp:TemplateField HeaderText="Tipo Caucho" ControlStyle-Width="220">
+												    <ItemTemplate>
+													    <div class="select-wrapper">
+														    <asp:DropDownList runat="server" ID="ddlTipoCauchoGrid"
+															    DataSourceID="SqlDataSource3" 
+															    DataTextField ="NombreTipoInsumoDetalle"
+															    DataValueField ="TipoInsumoDetalleID"
+															    SelectedValue ='<%# Bind("TipoCauchoID") %>'>
+														    </asp:DropDownList>
+													    </div>
+												    </ItemTemplate>
+											    </asp:TemplateField>
+												<asp:TemplateField HeaderText="Cantidad Cauchos" ControlStyle-Width="50">
+													<ItemTemplate>
+														<asp:TextBox runat="server" ID="txCantidadCauchoGrid" Text='<%# Eval("CantidadCauchos") %>'  ></asp:TextBox>
+													</ItemTemplate>
+												</asp:TemplateField>
+											    <asp:TemplateField HeaderText="Tipo Aceite" ControlStyle-Width="300">
+												    <ItemTemplate>
+													    <div class="select-wrapper">
+														    <asp:DropDownList runat="server" ID="ddlTipoAceiteGrid"
+															    DataSourceID="SqlDataSource4" 
+															    DataTextField ="NombreTipoInsumoDetalle"
+															    DataValueField ="TipoInsumoDetalleID"
+															    SelectedValue ='<%# Bind("TipoAceiteID") %>'>
+														    </asp:DropDownList>
+													    </div>
+												    </ItemTemplate>
+											    </asp:TemplateField>
+												<asp:TemplateField HeaderText="Litros" ControlStyle-Width="80">
+													<ItemTemplate>
+														<asp:TextBox runat="server" ID="txLitrosGrid" Text='<%# Eval("CantidadLitros") %>'  ></asp:TextBox>
+													</ItemTemplate>
+												</asp:TemplateField>
+											    <asp:TemplateField HeaderText="Tipo Bateria" ControlStyle-Width="180">
+												    <ItemTemplate>
+													    <div class="select-wrapper">
+														    <asp:DropDownList runat="server" ID="ddlTipoBateriaGrid"
+															    DataSourceID="SqlDataSource5" 
+															    DataTextField ="NombreTipoInsumoDetalle"
+															    DataValueField ="TipoInsumoDetalleID"
+															    SelectedValue ='<%# Bind("TipoBateriaID") %>'>
+														    </asp:DropDownList>
+													    </div>
+												    </ItemTemplate>
+											    </asp:TemplateField>
+												<asp:TemplateField HeaderText="Puestos" ControlStyle-Width="80">
+													<ItemTemplate>
+														<asp:TextBox runat="server" ID="txtCapacidadGrid" Text='<%# Eval("Capacidad") %>'  ></asp:TextBox>
+													</ItemTemplate>
+												</asp:TemplateField>
+											    <asp:TemplateField HeaderText="Acciones" HeaderStyle-Width="100">
 												    <ItemTemplate>
 														    <asp:ImageButton runat="server" ID="btnActualizarModificacionGrid" AlternateText="Guardar cambios" ToolTip="Guardar cambios" ImageUrl="~/Images/Save_37110.png"  CommandName="GuardarCambiosGrid" CommandArgument='<%# Eval("ModeloVehiculoID") %>' CausesValidation ="false"/> 
 														    <asp:ImageButton runat="server" ID="btnEliminarRegistro" AlternateText="Eliminar Registro" ToolTip="Eliminar Registro" OnClientClick="return Confirmacion();" ImageUrl="~/Images/eliminar.png"  CommandName="EliminarDetalle" CommandArgument='<%# Eval("ModeloVehiculoID") %>' CausesValidation ="false"/> 
 												    </ItemTemplate>
-											    </asp:TemplateField>--%>
+											    </asp:TemplateField>
 										</Columns>
 										</asp:GridView>
 								</div>
@@ -190,7 +313,7 @@
 <%--					<div id="sidebar">
 						<div class="inner">--%>
 							<!-- Menu -->
-								<uc2:UCNavegacion  runat ="server" ID ="ControlMenu"/>
+								<%--<uc2:UCNavegacion  runat ="server" ID ="ControlMenu"/>--%>
 <%--						</div>
 					</div>--%>
 			</div>

@@ -123,7 +123,7 @@
 			  
 			  document.getElementById("hdnBeneficiarioID").value = par[0];
 			  document.getElementById("ddTipoBenficiario").value = par[1];
-			  document.getElementById("txtNombreBeneficiario").value = par[3];
+			 // document.getElementById("txtNombreBeneficiario").value = par[3];
 			  document.getElementById("txtCedulaBeneficiario").value = par[2];
 			  document.getElementById("ddlPadre").value = par[12];
 
@@ -182,19 +182,22 @@
 									<p></p>
 										<div class="row uniform">
 											 <div class="6u 12u$(xsmall)">
-												<asp:TextBox runat="server" ID="txtCedulaBeneficiario"   MaxLength="12" placeholder="Cédula beneficiario"  />
+												<asp:TextBox runat="server" ID="txtCedulaBeneficiario"   MaxLength="9" placeholder="Cédula beneficiario" />
+                                                 
 												<ASP:RequiredFieldValidator id="rqrvalidaCedulaBeneficiario" runat="server" errormessage="Debe colocar la cedula del beneficiario" controltovalidate="txtCedulaBeneficiario" display="Dynamic" ForeColor ="Red"></ASP:RequiredFieldValidator>
 												<asp:HiddenField runat ="server" ID ="hdnBeneficiarioID"  Value="0"/> 
+											</div>
+											<div class="6u 12u$(xsmall)"> 
+                                                <asp:Button  runat="server" ID ="btnBuscarNombreSaime" Text="Validar Cedula" OnClick ="btnBuscarNombreSaime_Click" CausesValidation="false"/>
+<%--												<asp:TextBox runat="server" ID="txtNombreBeneficiario"  MaxLength="150"  placeholder="Nombre del Beneficiario" />
+												<ASP:RequiredFieldValidator id="rqrvalidaNombreBeneficiario" runat="server" errormessage="Debe colocar el nombre del Beneficiario"  controltovalidate="txtNombreBeneficiario" display="Dynamic" ForeColor ="Red"></ASP:RequiredFieldValidator>--%>
 											</div>
 											<div class="6u 12u$(xsmall)">
 												<div class="select-wrapper">
 													<asp:DropDownList ID="ddTipoBenficiario" runat="server" AppendDataBoundItems="true"></asp:DropDownList>      
 												</div>
 											</div>
-											<div class="6u 12u$(xsmall)"> 
-												<asp:TextBox runat="server" ID="txtNombreBeneficiario"  MaxLength="150"  placeholder="Nombre del Beneficiario" />
-												<ASP:RequiredFieldValidator id="rqrvalidaNombreBeneficiario" runat="server" errormessage="Debe colocar el nombre del Beneficiario"  controltovalidate="txtNombreBeneficiario" display="Dynamic" ForeColor ="Red"></ASP:RequiredFieldValidator>
-											</div>
+
 
 											<div class="6u 12u$(xsmall)">
 												<div class="select-wrapper">
@@ -230,7 +233,7 @@
 											</div>
 
 											<div class="6u 12u$(xsmall)">
-												<asp:TextBox runat="server" ID="txtEmailBeneficiario"  MaxLength="100" placeholder ="Correo eléctronico de la organización" pattern="[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+" title="Debe usar la estructura de correo electronico Ejemplo@fontur.es"/>
+												<asp:TextBox runat="server" ID="txtEmailBeneficiario"  MaxLength="100" placeholder ="Correo eléctronico del beneficiario" pattern="[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+" title="Debe usar la estructura de correo electronico Ejemplo@fontur.es"/>
 												<%--<ASP:RequiredFieldValidator id="rqrValidaEmailBeneficiario" runat="server" errormessage="Debe colocar el correo eléctronico  del Bneficiario" controltovalidate="txtEmailBeneficiario" display="Dynamic" ForeColor ="Red"></ASP:RequiredFieldValidator>--%>
 											</div>
 											

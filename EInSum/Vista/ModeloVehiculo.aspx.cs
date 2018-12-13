@@ -16,6 +16,8 @@ namespace Eisum
         {
             if(!IsPostBack)
             {
+                gridDetalle.Visible = true;
+                gridDetalle2.Visible = false;
                 CargarMarcaVehiculo();
                 CargarTipoVehiculo();
                 CargarTipoCaucho();
@@ -37,6 +39,8 @@ namespace Eisum
                 DataTable dt = ds.Tables[0];
                 gridDetalle.DataSource = dt;
                 gridDetalle.DataBind();
+                gridDetalle2.DataSource = dt;
+                gridDetalle2.DataBind();
             }
             catch (Exception ex)
             {
@@ -209,6 +213,8 @@ namespace Eisum
         protected void ddlMarcaVehiculo_SelectedIndexChanged(object sender, EventArgs e)
         {
             CargarGrid();
+            gridDetalle.Visible = false;
+            gridDetalle2.Visible = true;
         }
         private void NuevoRegistro()
         {
@@ -222,11 +228,85 @@ namespace Eisum
             txtCapacidad.Text = string.Empty;
             txtLitros.Text = string.Empty;
             txtModelo.Text = string.Empty;
+            gridDetalle.Visible = true;
+            gridDetalle2.Visible = false;
         }
 
         protected void btnNuevoRegistro_Click(object sender, EventArgs e)
         {
             NuevoRegistro();
+        }
+
+        private void ActualizarLista()
+        {
+            try
+            {
+                List<CMarcaModeloVehiculo> objetoLista = new List<CMarcaModeloVehiculo>();
+                string sResultado = ValidarDatos(ref objetoLista);
+                foreach (CMarcaModeloVehiculo prod in objetoLista)
+                {
+                    ModeloVehiculo.InsertarModeloVehiculo(prod);
+                    messageBox.ShowMessage("Modelo actualizado");
+                }
+            }
+            catch (Exception ex)
+            {
+                messageBox.ShowMessage(ex.Message + ex.StackTrace);
+            }
+        }
+        private string ValidarDatos(ref List<CMarcaModeloVehiculo> objetoAsignarEstatus)
+        {
+            try
+            {
+                string sResultado = "";
+                CMarcaModeloVehiculo objetoAsignaEstatus = null;
+                int j = 1;
+                foreach (GridViewRow dr in this.gridDetalle2.Rows)
+                {
+                    objetoAsignaEstatus = new CMarcaModeloVehiculo();
+                    objetoAsignaEstatus.ModeloVehiculoID = Utils.utils.ToInt(((Label)dr.FindControl("lblModeloID")).Text);
+                    objetoAsignaEstatus.MarcaVehiculoID = Utils.utils.ToInt(((Label)dr.FindControl("lblMarcaID")).Text);
+                    objetoAsignaEstatus.NombreModeloVehiculo = Utils.utils.ToString(((TextBox)dr.FindControl("txtModeloGrid")).Text);
+                    objetoAsignaEstatus.TipoVehiculoID = Utils.utils.ToInt(((DropDownList)dr.FindControl("ddlTipoVehiculoGrid")).Text);
+                    objetoAsignaEstatus.TipoCauchoID = Utils.utils.ToInt(((DropDownList)dr.FindControl("ddlTipoCauchoGrid")).Text);
+                    objetoAsignaEstatus.CantidadCauchos = Utils.utils.ToInt(((TextBox)dr.FindControl("txCantidadCauchoGrid")).Text);
+                    objetoAsignaEstatus.TipoAceiteID = Utils.utils.ToInt(((DropDownList)dr.FindControl("ddlTipoAceiteGrid")).Text);
+                    objetoAsignaEstatus.CantidadLitros = Utils.utils.ToInt(((TextBox)dr.FindControl("txLitrosGrid")).Text);
+                    objetoAsignaEstatus.TipoBateriaID = Utils.utils.ToInt(((DropDownList)dr.FindControl("ddlTipoBateriaGrid")).Text);
+                    objetoAsignaEstatus.Capacidad = Utils.utils.ToInt(((TextBox)dr.FindControl("txtCapacidadGrid")).Text);
+                    sResultado = "Estatus <br>";
+                    objetoAsignarEstatus.Add(objetoAsignaEstatus);
+                    j++;
+                }
+
+                return sResultado;
+            }
+            catch (Exception ex)
+            {
+
+                messageBox.ShowMessage(ex.Message + ex.StackTrace);
+                return "";
+            }
+        }
+        protected void gridDetalle2_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "EliminarDetalle")
+                {
+                    var result = ModeloVehiculo.EliminarModelo(Convert.ToInt32(e.CommandArgument.ToString()));
+                    messageBox.ShowMessage(result);
+                    CargarGrid();
+                }
+                else if (e.CommandName == "GuardarCambiosGrid")
+                {
+                    ActualizarLista();
+                }
+            }
+            catch (Exception ex)
+            {
+                messageBox.ShowMessage(ex.Message + ex.StackTrace);
+            }
         }
     }
 }

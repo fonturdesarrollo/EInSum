@@ -24,8 +24,8 @@ namespace Eisum
         private int _seguridadUsuarioDatosID;
         private int _bloqueID;
         private int _ejeID;
-
-        public COrganizacion(int _organizacionID, int _tipoOrganizacionID, string _rifOrganizacion, string _nombreOrganizacion, int _parroquiaID, string _telefonoLocalOrganizacion, string _telefonoCelularOrganizacion, string _emailOrganizacion, string _direccionOrganizacion, int _cedulaPresidente, string _nombrePresidente, int _seguridadUsuarioDatosID, int _bloqueID, int _ejeID)
+        private string _rutaOrganizaion;
+        public COrganizacion(int _organizacionID, int _tipoOrganizacionID, string _rifOrganizacion, string _nombreOrganizacion, int _parroquiaID, string _telefonoLocalOrganizacion, string _telefonoCelularOrganizacion, string _emailOrganizacion, string _direccionOrganizacion, int _cedulaPresidente, string _nombrePresidente, int _seguridadUsuarioDatosID, int _bloqueID, int _ejeID, string _rutaOrganizacion)
         {
             this.OrganizacionID = _organizacionID;
             this.TipoOrganizacionID = _tipoOrganizacionID;
@@ -41,6 +41,7 @@ namespace Eisum
             this.SeguridadUsuarioDatosID = _seguridadUsuarioDatosID;
             this.BloqueID = _bloqueID;
             this.EjeID = _ejeID;
+            this.RutaOrganizacion = _rutaOrganizaion;
         }
 
 
@@ -221,6 +222,18 @@ namespace Eisum
             set
             {
                 _ejeID = value;
+            }
+        }
+        public string RutaOrganizacion
+        {
+            get
+            {
+                return _rutaOrganizaion;
+            }
+
+            set
+            {
+                _rutaOrganizaion = value;
             }
         }
     }

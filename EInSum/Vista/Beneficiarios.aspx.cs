@@ -219,7 +219,7 @@ namespace Eisum
                     {
                         Session.Remove("BeneficiarioID");
                         Session["BeneficiarioID"] = codigoBeneficiario;
-                        AuditarMovimiento(HttpContext.Current.Request.Url.AbsolutePath, "Agregó nuevo beneficiario: " + txtNombreBeneficiario.Text.ToUpper(), System.Net.Dns.GetHostEntry(Request.ServerVariables["REMOTE_HOST"]).HostName, Convert.ToInt32(this.Session["UserId"].ToString()));
+                        AuditarMovimiento(HttpContext.Current.Request.Url.AbsolutePath, "Agregó nuevo beneficiario: " + Session["NombreSaime"].ToString().ToUpper() + " " + Session["ApellidoSaime"].ToString().ToUpper(), System.Net.Dns.GetHostEntry(Request.ServerVariables["REMOTE_HOST"]).HostName, Convert.ToInt32(this.Session["UserId"].ToString()));
                         messageBox.ShowMessage("Registro actualizado");
                         NuevoRegistro();
                         codigoBeneficiario = 0;
@@ -335,7 +335,6 @@ namespace Eisum
             hdnParroquiaID.Value = "0";
             txtDireccionBeneficiario.Text = string.Empty;
             txtEmailBeneficiario.Text = string.Empty;
-            txtNombreBeneficiario.Text = string.Empty;
             txtTelefonoBeneficiario.Text = string.Empty;
             ddlHijo.Items.Clear();
             ddlNieto.Items.Clear();
@@ -420,6 +419,27 @@ namespace Eisum
         {
             Beneficiarios.CruzarBeneficiario();
             messageBox.ShowMessage("LISTO");
+        }
+
+        protected void btnBuscarNombreSaime_Click(object sender, EventArgs e)
+        {
+            if(txtCedulaBeneficiario.Text != "")
+            {
+                if (EsSolicitanteEnsaime() == true)
+                {
+                    messageBox.ShowMessage("Cedula válida, pertenece a: " + Session["NombreSaime"]);
+                }
+                else
+                {
+                    messageBox.ShowMessage("Cédula inválida");
+                }
+            }
+            else
+            {
+                messageBox.ShowMessage("Debe colocar el número de cedula");
+            }
+
+
         }
     }
 }

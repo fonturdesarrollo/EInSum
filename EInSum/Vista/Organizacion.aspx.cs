@@ -259,13 +259,25 @@ namespace Eisum
                     objetoOrganizacion.NombrePresidente = txtNombrePresidente.Text.ToUpper();
                     objetoOrganizacion.SeguridadUsuarioDatosID = Convert.ToInt32(Session["UserId"]);
                     objetoOrganizacion.BloqueID = Convert.ToInt32(ddlBloque.SelectedValue);
+                    objetoOrganizacion.RutaOrganizacion = txtRutaOrganizacion.Text.ToUpper();
                     codigoOrganizacion = Organizacion.InsertarOrganizacion(objetoOrganizacion);
 
                     if (codigoOrganizacion > 0)
                     {
                         Session.Remove("OrganizacionID");
                         Session["OrganizacionID"] = codigoOrganizacion;
-                        AuditarMovimiento(HttpContext.Current.Request.Url.AbsolutePath, "Agregó nueva organización: " + txtNombreOrganizacion.Text.ToUpper(), System.Net.Dns.GetHostEntry(Request.ServerVariables["REMOTE_HOST"]).HostName, Convert.ToInt32(this.Session["UserId"].ToString()));
+                        var mensajeLog = "";
+
+                        if (hdnCodigoOrganizacion.Value =="0")
+                        {
+                            mensajeLog = "Agregó";
+                        }
+                        else
+                        {
+                            mensajeLog = "Actualizó";
+                        }
+
+                        AuditarMovimiento(HttpContext.Current.Request.Url.AbsolutePath, mensajeLog +" organización: " + txtNombreOrganizacion.Text.ToUpper(), System.Net.Dns.GetHostEntry(Request.ServerVariables["REMOTE_HOST"]).HostName, Convert.ToInt32(this.Session["UserId"].ToString()));
                         codigoOrganizacion = 0;
                         NuevoRegistro();
                         messageBox.ShowMessage("Registro actualizado");
@@ -381,6 +393,7 @@ namespace Eisum
             txtEmailOrg.Text = string.Empty;
             txtCedulaPresidente.Text = string.Empty;
             txtNombrePresidente.Text = string.Empty;
+            txtRutaOrganizacion.Text = string.Empty;
             CargarPadre();
             ddlHijo.Items.Clear();
             ddlNieto.Items.Clear();

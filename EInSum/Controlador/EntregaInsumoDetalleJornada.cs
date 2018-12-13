@@ -52,14 +52,23 @@ namespace Eisum
                 throw;
             }
         }
-        public static DataSet ObtenerDetalleEntregaJornada(int entregaInsumoID, string placa)
+        public static DataSet ObtenerDetalleEntregaJornada(int entregaInsumoID, string placa,int organizacionID)
         {
             SqlParameter[] dbParams = new SqlParameter[]
                 {
                     DBHelper.MakeParam("@EntregaInsumoID", SqlDbType.Int, 0, entregaInsumoID),
-                    DBHelper.MakeParam("@Placa", SqlDbType.VarChar, 0, placa)
+                    DBHelper.MakeParam("@Placa", SqlDbType.VarChar, 0, placa),
+                    DBHelper.MakeParam("@OrganizacionID", SqlDbType.Int, 0, organizacionID)
                 };
             return DBHelper.ExecuteDataSet("usp_EntregaInsumoDetalleJornada_ObtenerDetalleEntregaJornada", dbParams);
+        }
+        public static DataSet ObtenerDetalleEntregaJornadaOrganizacion(int entregaInsumoID)
+        {
+            SqlParameter[] dbParams = new SqlParameter[]
+                {
+                    DBHelper.MakeParam("@EntregaInsumoID", SqlDbType.Int, 0, entregaInsumoID)
+                };
+            return DBHelper.ExecuteDataSet("usp_EntregaInsumoDetalleJornada_ObtenerDetalleEntregaJornadaOrganizacion", dbParams);
         }
 
         public static SqlDataReader ObtenerPlacaConInsumoAsignado(string placa, int tipoInsumoDetalleID)

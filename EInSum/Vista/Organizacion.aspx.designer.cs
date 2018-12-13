@@ -166,6 +166,15 @@ namespace Eisum {
         protected global::System.Web.UI.WebControls.DropDownList ddlBloque;
         
         /// <summary>
+        /// txtRutaOrganizacion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRutaOrganizacion;
+        
+        /// <summary>
         /// txtTelefonoLocalOrganizacion control.
         /// </summary>
         /// <remarks>

@@ -76,6 +76,15 @@ namespace Eisum {
         protected global::System.Web.UI.WebControls.HiddenField hdnBeneficiarioID;
         
         /// <summary>
+        /// btnBuscarNombreSaime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnBuscarNombreSaime;
+        
+        /// <summary>
         /// ddTipoBenficiario control.
         /// </summary>
         /// <remarks>
@@ -83,24 +92,6 @@ namespace Eisum {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddTipoBenficiario;
-        
-        /// <summary>
-        /// txtNombreBeneficiario control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNombreBeneficiario;
-        
-        /// <summary>
-        /// rqrvalidaNombreBeneficiario control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rqrvalidaNombreBeneficiario;
         
         /// <summary>
         /// ddlPadre control.

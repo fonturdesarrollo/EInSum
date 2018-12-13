@@ -162,7 +162,7 @@
 												<asp:HiddenField runat ="server" ID ="hdnCodigoOrganizacion"  Value="0"/> 
 											</div>
 											<div class="6u 12u$(xsmall)"> 
-												<asp:TextBox runat="server" ID="txtCedulaBeneficiario"  MaxLength="80"  placeholder="Cedula / nombre beneficiario" />
+												<asp:TextBox runat="server" ID="txtCedulaBeneficiario"  MaxLength="80"  placeholder="Cedula beneficiario" />
 												<ASP:RequiredFieldValidator id="rqrvalidaCedulaBeneficiario" runat="server" errormessage="Debe colocar la cedula del beneficiario"  controltovalidate="txtCedulaBeneficiario" display="Dynamic" ForeColor ="Red"></ASP:RequiredFieldValidator>
 												<asp:HiddenField runat ="server" ID ="hdnBeneficiarioID"  Value="0"/> 
 											</div>
@@ -207,15 +207,14 @@
 													<ASP:RequiredFieldValidator id="rqrValidaAño" runat="server" errormessage="Debe colocar el año" controltovalidate="ddAñoVehiculo" display="Dynamic" ForeColor ="Red"></ASP:RequiredFieldValidator>
 												</div>
 											</div>
-											<div class="6u 12u$(xsmall)">
+<%--											<div class="6u 12u$(xsmall)">
 												<asp:TextBox runat="server" ID="txtRuta"  MaxLength="200" placeholder ="Ruta"/>
 												<ASP:RequiredFieldValidator id="rqrValidaRuta" runat="server" errormessage="Debe colocar la ruta" controltovalidate="txtRuta" display="Dynamic" ForeColor ="Red"></ASP:RequiredFieldValidator>
-											</div>
+											</div>--%>
 
 											<div class="6u 12u$(xsmall)">
 												<asp:Label runat="server" ID="lblEtiquetaTotalRegistros" Text="Total registros:"/>
 												<asp:Label runat="server" ID="lblTotalRegistros" Text="0"/>
-												<ASP:RequiredFieldValidator id="RequiredFieldValidator1" runat="server" errormessage="Debe colocar la ruta" controltovalidate="txtRuta" display="Dynamic" ForeColor ="Red"></ASP:RequiredFieldValidator>
 											</div>
 
 											<div class="12u$">

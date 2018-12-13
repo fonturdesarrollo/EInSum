@@ -136,7 +136,9 @@
 			  document.getElementById("txtCedulaPresidente").value = par[11];
 			  document.getElementById("txtNombrePresidente").value = par[12];
 			  document.getElementById("txtRifOrganizacion").value = par[1];
-			  document.getElementById("ddlBloque").value = par[16];
+              document.getElementById("ddlBloque").value = par[16];
+              document.getElementById("txtRutaOrganizacion").value = par[17];
+
 
 			  var bt = document.getElementById("ButtonTest");
 			  bt.click();
@@ -235,7 +237,10 @@
 													<asp:DropDownList ID="ddlBloque" runat="server" AppendDataBoundItems="true"></asp:DropDownList>      
 												</div>
 											</div>
-
+											<div class="6u 12u$(xsmall)">
+												<asp:TextBox runat="server" ID="txtRutaOrganizacion"  MaxLength="250" placeholder ="Ruta de la organización" TextMode="MultiLine" Rows="2"/>
+												<%--<ASP:RequiredFieldValidator id="rqrValidaTelefonoLocalOrg" runat="server" errormessage="Debe colocar el telefono de la organización" controltovalidate="txtTelefonoLocalOrganizacion" display="Dynamic" ForeColor ="Red"></ASP:RequiredFieldValidator>--%>
+											</div>
 											<div class="6u 12u$(xsmall)">
 												<asp:TextBox runat="server" ID="txtTelefonoLocalOrganizacion"  MaxLength="11" placeholder ="Teléfono local de la organización" pattern="^([0-9]{11})$" title="Debe colocar el codigo seguido del numero sin espacios ni guiones 04127654321" />
 												<%--<ASP:RequiredFieldValidator id="rqrValidaTelefonoLocalOrg" runat="server" errormessage="Debe colocar el telefono de la organización" controltovalidate="txtTelefonoLocalOrganizacion" display="Dynamic" ForeColor ="Red"></ASP:RequiredFieldValidator>--%>

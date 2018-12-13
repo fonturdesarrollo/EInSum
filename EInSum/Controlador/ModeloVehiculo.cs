@@ -36,6 +36,49 @@ namespace Eisum
                 throw;
             }
         }
+        public static string EliminarModelo(int modeloID)
+        {
+            string resultado = "Registro Eliminado";
+            try
+            {
+                
+                if(EsModeloAsignadoAUnidad(modeloID) == false)
+                {
+                    SqlParameter[] dbParams = new SqlParameter[]
+                    {
+                        DBHelper.MakeParam("@ModeloVehiculoID", SqlDbType.Int, 0, modeloID)
+                    };
+                    Convert.ToInt32(DBHelper.ExecuteScalar("usp_Modelo_EliminarModeloVehiculo", dbParams));
+                }
+                else
+                {
+                    resultado = "No se puede eliminar el modelo, está asignado a una unidad.";
+                }
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+               resultado = ex.Message + ex.StackTrace;
+               throw;
+            }
+        }
+        private static bool EsModeloAsignadoAUnidad(int modeloID)
+        {
+            string consultaSQL = "SELECT  * FROM OrganizacionAsignarVehiculo WHERE ModeloVehiculoID = " + modeloID;
+            bool resultado = false;
+            SqlConnection cn = new SqlConnection(System.Configuration.ConfigurationManager.AppSettings.Get("connectionString"));
+            cn.Open();
+            SqlCommand command = new SqlCommand(consultaSQL, cn);
+            SqlDataReader dr = command.ExecuteReader();
+            if (dr.HasRows)
+            {
+                resultado = true;
+            }
+            command.Dispose();
+            cn.Close();
+            cn.Dispose();
+            return resultado;
+        }
         public static DataSet ObtenerModelos(int marcaID)
         {
             SqlParameter[] dbParams = new SqlParameter[]
