@@ -43,41 +43,53 @@ namespace Vista
                 //=============================================================
                 //OPERATIVO
                 //=============================================================
-                if (objetoSeguridad.EsAccesoPermitido(1023) == true)
+                if (objetoSeguridad.EsAccesoPermitido(1056) == true)
                 {
                     lnkJornada.Visible = true;
                 }
+                if (objetoSeguridad.EsAccesoPermitido(1057) == true)
+                {
+                    lnkAsignarBeneficiarios.Visible = true;
+                }
                 if (objetoSeguridad.EsAccesoPermitido(1058) == true)
+                {
+                    lnkEntrega.Visible = true;
+                }
+                if (objetoSeguridad.EsAccesoPermitido(1059) == true)
                 {
                     lnkCierreOperativo.Visible = true;
                 }
-
                 //=============================================================
 
                 //=============================================================
                 //INVENTARIO
                 //=============================================================
-                if (objetoSeguridad.EsAccesoPermitido(1023) == true)
+                if (objetoSeguridad.EsAccesoPermitido(1060) == true)
                 {
                     lnkEntradaInventario.Visible = true;
                 }
-
+                if (objetoSeguridad.EsAccesoPermitido(1061) == true)
+                {
+                    lnkAsignacionInventario.Visible = true;
+                }
+                if (objetoSeguridad.EsAccesoPermitido(1062) == true)
+                {
+                    lnkAlmacen.Visible = true;
+                }
                 //=============================================================
 
                 //=============================================================
                 //OPCIONES ESPECIALES
                 //=============================================================
 
-                if (objetoSeguridad.EsAccesoPermitido(1056) == true)
+                if (objetoSeguridad.EsAccesoPermitido(1063) == true)
                 {
                     lnkMarca.Visible = true;
                 }
-                if (objetoSeguridad.EsAccesoPermitido(1057) == true)
+                if (objetoSeguridad.EsAccesoPermitido(1064) == true)
                 {
                     lnkModelo.Visible = true;
                 }
-
-
             }
         }
         private void ColocarEnlacesInvisibles()

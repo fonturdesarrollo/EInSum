@@ -67,14 +67,32 @@ namespace Seguridad
                 case "/Vista/AsignarEje.aspx":
                     codigoObjeto = 1055;
                     break;
-                case "/Vista/MarcaVehiculo.aspx":
+                case "/Vista/EntregaInsumoJornada.aspx":
                     codigoObjeto = 1056;
                     break;
-                case "/Vista/ModeloVehiculo.aspx":
+                case "/Vista/EntregaInsumoDetalleJornada.aspx":
                     codigoObjeto = 1057;
                     break;
-                case "/Vista/EntregaCierreOperativo.aspx":
+                case "/Vista/Entrega.aspx":
                     codigoObjeto = 1058;
+                    break;
+                case "/Vista/EntregaCierreOperativo.aspx":
+                    codigoObjeto = 1059;
+                    break;
+                case "/Vista/InventarioEntrada.aspx":
+                    codigoObjeto = 1060;
+                    break;
+                case "/Vista/InventarioAsignacion.aspx":
+                    codigoObjeto = 1061;
+                    break;
+                case "/Vista/Almacen.aspx":
+                    codigoObjeto = 1062;
+                    break;
+                case "/Vista/MarcaVehiculo.aspx":
+                    codigoObjeto = 1063;
+                    break;
+                case "/Vista/ModeloVehiculo.aspx":
+                    codigoObjeto = 1064;
                     break;
                 default:
                     break;
