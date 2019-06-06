@@ -7,7 +7,6 @@ namespace Admin
 {
     public partial class Autocomplete
     {
-
         public static DataSet ObtenerRifOrganizacion(string sQuery, int codigoEstado, int codigoBloque)
         {
             SqlParameter[] dbParams = new SqlParameter[]
@@ -18,14 +17,19 @@ namespace Admin
                 };
             return DBHelper.ExecuteDataSet("usp_Autocomplete_ObtenerOrganizacionPorRIF", dbParams);
         }
+
         public static DataSet ObtenerCedulaBeneficiario(string sQuery)
         {
+            int cedula = 0;
+            string queryString = (int.TryParse(sQuery, out cedula)) ? sQuery : "0";
+
             SqlParameter[] dbParams = new SqlParameter[]
                 {
-                    DBHelper.MakeParam("@Query", SqlDbType.VarChar, 0, sQuery),
+                    DBHelper.MakeParam("@Query", SqlDbType.VarChar, 0, queryString),
                 };
             return DBHelper.ExecuteDataSet("usp_Autocomplete_ObtenerBeneficiarioPorCedula", dbParams);
         }
+
         public static DataSet ObtenerNombreInsumo(string sQuery)
         {
             SqlParameter[] dbParams = new SqlParameter[]
@@ -34,6 +38,7 @@ namespace Admin
                 };
             return DBHelper.ExecuteDataSet("usp_Autocomplete_ObtenerNombreInsumo", dbParams);
         }
+
         public static DataSet ObtenerPlacaAsignadaJornada(string sQuery)
         {
             SqlParameter[] dbParams = new SqlParameter[]
@@ -42,6 +47,7 @@ namespace Admin
                 };
             return DBHelper.ExecuteDataSet("usp_Autocomplete_ObtenerPlacaAsignadaJornada", dbParams);
         }
+
         public static DataSet ObtenerEmpresas(string sQuery)
         {
             SqlParameter[] dbParams = new SqlParameter[]
@@ -50,6 +56,7 @@ namespace Admin
                 };
             return DBHelper.ExecuteDataSet("usp_Autocomplete_ObtenerEmpresas", dbParams);
         }
+
         public static DataSet ObtenerEmpresaSucursal(string sQuery)
         {
             SqlParameter[] dbParams = new SqlParameter[]
@@ -69,6 +76,7 @@ namespace Admin
                 };
             return DBHelper.ExecuteDataSet("usp_Autocomplete_ObtenerUsuarios", dbParams);
         }
+
         public static DataSet ObtenerGrupos(string sQuery)
         {
             SqlParameter[] dbParams = new SqlParameter[]
@@ -77,6 +85,7 @@ namespace Admin
                 };
             return DBHelper.ExecuteDataSet("usp_Autocomplete_ObtenerGrupos", dbParams);
         }
+
         public static DataSet ObtenerObjetos(string sQuery)
         {
             SqlParameter[] dbParams = new SqlParameter[]

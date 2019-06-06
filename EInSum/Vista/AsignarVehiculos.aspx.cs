@@ -401,12 +401,12 @@ namespace Eisum
             if (hdnBeneficiarioID.Value =="0")
             {
                 resultado = false;
-                messageBox.ShowMessage("Debe selecionar el beneficiario de la lista.");
+                messageBox.ShowMessage("Debe buscar al beneficiario con el número de cédula completo, si está registrado se mostrará en la lista, debe seleccionarlo haciendo clic.");
             }
             else if (hdnCodigoOrganizacion.Value == "0")
             {
                 resultado = false;
-                messageBox.ShowMessage("Debe selecionar la organización de la lista.");
+                messageBox.ShowMessage("Debe buscar al beneficiario con el número de cédula completo, si está registrado se mostrará en la lista, debe seleccionarlo haciendo clic.");
             }
             if (AsignarVehiculos.EsPlacaAsignada(txtPlaca.Text.ToUpper()))
             {
